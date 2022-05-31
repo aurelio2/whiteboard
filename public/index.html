@@ -12,6 +12,8 @@
   <script src="https://apis.google.com/js/platform.js" async defer>
     { parsetags: 'explicit' }
   </script>
+  <script src="path/to/sharer.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sharer.js@latest/sharer.min.js"></script>
   <style type="text/css">
     #container {
       position: relative;
@@ -100,6 +102,7 @@
         <button>Download</button>
 
 
+
       <label for="colour" style="position:absolute;">Cor : </label>
       <input id="colour-picker" value="#000000" style="width:80px;" class="jscolor {width:243, height:150, position:'right',
     borderColor:'#FFF', insetColor:'#FFF', backgroundColor:'#666'}">
@@ -161,6 +164,7 @@
       <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
     </div>
 
+    <button class="button" data-sharer="whatsapp" data-title="Checkout Sharer.js!" data-url="https://whiteboard-aurelio.herokuapp.com/">Share on Whatsapp</button>
     <br>
     <div class="conteudo">
       <pre id="content" style="white-space: pre-wrap;"></pre>
