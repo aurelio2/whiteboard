@@ -7,7 +7,7 @@ const port = process.env.PORT || 5000;
 
 
 
-
+//acessando o directorio principal
 app.use(express.static(__dirname + '/public'));
 
 function onConnection(socket){
