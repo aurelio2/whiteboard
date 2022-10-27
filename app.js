@@ -5,11 +5,32 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const port = process.env.PORT || 5000;
 const fs = require('fs')
+const path = require('path');
+const axios = require('axios')
+let stream = require( './src/ws/stream' );
+
+let favicon = require( 'serve-favicon' );
+app.use( favicon( path.join( __dirname, './src/favicon.ico' ) ) );
+app.use( '/assets', express.static( path.join( __dirname, './src/assets' ) ) );
+
 
 const multer = require('multer')
 
 //acessando o directorio principal
 app.use(express.static(__dirname + '/views'));
+app.use(express.static(__dirname + '/videochat'));
+app.get("/live",(req,res)=>{
+
+  res.sendFile(path.join(__dirname, '/videochat/lobby.html'));
+})
+
+
+//live 2
+app.get("/live2",(req,res)=>{
+  res.sendFile(path.join(__dirname, '/src/index.html'));
+})
+io.of( '/stream' ).on( 'connection', stream );
+
 
 function onConnection(socket){
   socket.on('drawing', function(data){
@@ -59,7 +80,8 @@ function onConnection(socket){
 const {google} = require('googleapis')
 
 //requerer as credencias
-const OAuth2Data = require('./credencial.json')
+const OAuth2Data = require('./credencial.json');
+const { response } = require('express');
 
 const CLIENT_ID = OAuth2Data.web.client_id
 const CLIENT_SECRET = OAuth2Data.web.client_secret
@@ -142,6 +164,7 @@ app.get('/google/callback',(req,res)=>{
             }
         })
     }
+    
 
 })
 
@@ -181,6 +204,8 @@ app.post("/upload", (req, res) => {
     }
   });
 });
+
+/*part of videochat */
 
 
 io.on('connection', onConnection);
